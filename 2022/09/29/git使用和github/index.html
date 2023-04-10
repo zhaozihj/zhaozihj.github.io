@@ -1,0 +1,736 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="所有操作之前先提交原版文件 1.4.分布式和集中式区别 分布式就是每个人手里都有一份项目完整的历史记录，而集中式只是集中服务器上有所有人的记录 1.5.工作机制： 工作区就是代码在本地磁盘的位置 3.4.2 git rm –cached 文件名   从暂存区移除文件 3.5.1 提交后有版本号  3.7.1 Head-&gt;master在哪，就说明当前处于这个版本 git控制台之中选中之后，就是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git和github">
+<meta property="og:url" content="http://example.com/2022/09/29/git%E4%BD%BF%E7%94%A8%E5%92%8Cgithub/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="所有操作之前先提交原版文件 1.4.分布式和集中式区别 分布式就是每个人手里都有一份项目完整的历史记录，而集中式只是集中服务器上有所有人的记录 1.5.工作机制： 工作区就是代码在本地磁盘的位置 3.4.2 git rm –cached 文件名   从暂存区移除文件 3.5.1 提交后有版本号  3.7.1 Head-&gt;master在哪，就说明当前处于这个版本 git控制台之中选中之后，就是">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/miaowazhongzi.jpg">
+<meta property="article:published_time" content="2022-09-29T15:31:35.000Z">
+<meta property="article:modified_time" content="2023-04-10T12:58:50.944Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/miaowazhongzi.jpg">
+  
+  
+  
+  <title>git和github - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202209301019837.jpeg","onlypost":true,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>java宝库</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="git和github"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-29 23:31" pubdate>
+          September 29, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">git和github</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="所有操作之前先提交原版文件"><a href="#所有操作之前先提交原版文件" class="headerlink" title="所有操作之前先提交原版文件"></a>所有操作之前先提交原版文件</h1><p><img src="https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202211281653454.png" srcset="https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202209301019837.jpeg" lazyload alt="image-20221128165342196"></p>
+<p>1.4.分布式和集中式区别</p>
+<p>分布式就是每个人手里都有一份项目完整的历史记录，而集中式只是集中服务器上有所有人的记录</p>
+<p>1.5.工作机制：</p>
+<p>工作区就是代码在本地磁盘的位置</p>
+<p>3.4.2</p>
+<p>git rm –cached 文件名   从暂存区移除文件</p>
+<p>3.5.1</p>
+<p>提交后有版本号</p>
+<p><img src="D:\img\image-20221128195328944.png" srcset="https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202209301019837.jpeg" lazyload alt="image-20221128195328944"></p>
+<p>3.7.1</p>
+<p>Head-&gt;master在哪，就说明当前处于这个版本</p>
+<p>git控制台之中选中之后，就是复制，然后点击鼠标滚轮就是粘贴</p>
+<p>5.1</p>
+<p>师傅先push代码到代码托管中心，并开放权限给大弟子，大弟子可以clone代码到本地，自己修改后，也可以push到代码托管中心，然后师傅可以pull这个代码到本地库</p>
+<p>5.2</p>
+<p>东方不败可以把师傅远程库的代码fork到自己的远程库，然后东方不败从自己远程库clone到本地库，东方不败在本地库修改之后再push到东方不败远程库，然后东方不败需要Pull request向师傅发起请求，师傅先审核，然后审核通过就可以merge东方不败的版本过来到师傅的远程库，然后师傅可以pull远程库中的版本到本地库中</p>
+<p>$ vim hello&#x2F;hello1.txt          这样可以修改仓库中hello文件夹下的hello1.txt文件</p>
+<p>6.2.1</p>
+<p><img src="https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202211290853578.png" srcset="https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202209301019837.jpeg" lazyload alt="image-20221129085259491"></p>
+<p>这个master这里是你提交分支的名字</p>
+<p>当有人改了你远程库文件时，你发现远程库和本地库不同，可以 pull下来，pull下来之后会把那个文件自动提交本地库</p>
+<p>6.2.3</p>
+<p>git clone -b master <a target="_blank" rel="noopener" href="http://gitslab.yiqing.com/declare/about.git">http://gitslab.yiqing.com/declare/about.git</a></p>
+<p>-b是指定克隆的分支</p>
+<p>7.1</p>
+<p>git.config文件我放在C:&#x2F;Users 目录下</p>
+<p>7.6</p>
+<p><img src="https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202211291110814.png" srcset="https://zhao1129.oss-cn-qingdao.aliyuncs.com/img/202209301019837.jpeg" lazyload alt="image-20221129111043659"></p>
+<p>修改之后再提交，上面那一串0a开头的字符串是指这个版本号</p>
+<p>idea可以提示修改的内容</p>
+<p>8.2</p>
+<p>分项项目到github等于，先把项目代码添加到本地库然后创建远程库，再push</p>
+<p>8.3</p>
+<p>push commits的时候，那个github是之前提交的那个连接别名，默认是https这个链接，所以要把它换为ssh免密登录那个链接，重新修改别名来push</p>
+<p>提交到本地库之后才能够push</p>
+<p>8.4</p>
+<p>pull到本地库的时候它自动就是一个新的版本，如果觉得他的不好还可以再改回来原来版本再提交到本地库，再push</p>
+<p>小结：commit是保存在本地库，push是将本地库中的版本保存到远程库，包括直接分项也是将本地库中版本保存到远程库，</p>
+<p>pull的时候有可能会发生冲突</p>
+<p>在对本地代码进行修改的时候，最好先pull一下远程库中的代码，pull就是又新建了一个版本在本地库中</p>
+<p><strong>当进行了版本回调的时候，本地库会变为原来的版本，虽然master分支那个指针还是在新的版本上，但本地库和页面都是原来的版本</strong></p>
+<p><strong>，但现在不能直接push项目，push只能push某一个分支的代码，而不能说是单纯的哪一个版本，而没有分支在那</strong></p>
+<p>github所有连接都用ssh的，分享项目的时侯建立的那个链接默认是https的，可能会push不成功，你可以通过自己手动push，这个时候就可以自己制定连接了，不过要提前自己创建好库</p>
+<p>你提交了一次之后，又对代码进行了修改，此时你又要想回到之前那次提交的代码，你要先把修改过的提交了，此时你处于第二个版本，才能够彻底回到前一个版本，通过切换版本的方法</p>
+<p>在本地可以有多个分支，每个分支都可以单独提交到远程库，在远程库也可以查看不同分支</p>
+<p><strong>我们有一个master分支，然后又创价了一个新的分支dev，我们对dev进行不断的修改完善，然后准备把他俩合并，现在面临一个问题，就是我们是在master分支合并dev，还是在dev分支合并master，两者的区别在于在master分支合并dev会让master指向合并后的新提交，而dev还是指向原本合并之前的，所以我们基本都是在master合并dev</strong></p>
+<h2 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h2><p>你新建了一个文件夹，原本里面用于存放刚才的各种版本文件，现在要用git对该文件夹进行接管。当你修改了文件点击保存之后，就用git的相关命令，提交给git，让git帮你管理，git就会产生一个快照，记录你现在保存的状态，之后不论你对原文件进行任何修改（包括删除），只要你没有删除git文件，就都可以随时恢复。</p>
+<p>如下，当前只显示一个文件，但你使用git log命令，就可以看到你保存的各种版本的文件。</p>
+<p>每个版本的文件，都会显示该版本修改的内容，当然这个内容是你自己添加的说明。</p>
+<p>每个版本都有独特的一串代码（黄色字体的那串代码），要恢复对应版本的，就用那个代码。</p>
+<p>现在你手中就只需要管理一个文件，其它的文件你只是备用，可能用到，可能用不到。到最终他们都用不到，因为地形就只有一个。</p>
+<p>以上只是介绍大致的一个情况，git可以控制电脑上所有格式的文件doc、excel、dwg、dgn、rvt等等。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45684343/article/details/103697678">https://blog.csdn.net/weixin_45684343/article/details/103697678</a></p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>git的用户名和邮箱和github一样</p>
+<p>$ git config –global user.name “zhaozihj”，设置用户名</p>
+<p>$ git config –global user.email <a href="mailto:&#x33;&#x32;&#52;&#x31;&#x35;&#50;&#53;&#x30;&#x33;&#54;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;">&#x33;&#x32;&#52;&#x31;&#x35;&#50;&#53;&#x30;&#x33;&#54;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;</a>   设置邮箱</p>
+<p>$ git config –list   看自己所设置的所有配置</p>
+<p>git init 初始化git生成git仓库，生成一个隐藏的.git文件夹<br>git status           查看git状态，可以看到哪些文件在暂缓区，哪些不在<br>git add <filename>             添文件到暂存区,后面就是个文件名也不用加引号什么的<br>git add .           加入所有文件到暂存区    所有文件是指与git文件在同一目录下的所有文件<br>git commit -m “message”  <filename>    提交文件到本地仓库message是一些状态的补充信息，提交到git仓库中</p>
+<p>git log 能查看是谁在什么时候对版本进行了改动  进行这个操作以后commit后面跟的值，就像是commit的身份证</p>
+<p>git reflog    这个是git log的精简版，内容比较少</p>
+<p>git reset <filename>将尚没有commite之前加入到暂存区的文件重新拉回</p>
+<p>git reset <commitid> –hard&#x2F;–soft&#x2F;–mixed回到前几次中某一次修改的版本</p>
+<p>–hard:不保存所有变更     –soft:保存变更且变更内容处于staged</p>
+<p>–mixed:保留变更且变更内容处于modified</p>
+<p>–soft:保留变更且变更内容处于staged</p>
+<p>上面的变更是指reset之后的操作</p>
+<p>git reflog 查看所有的操作记录，在当中找到你想回退的那个版本的id再用git reset  (适用于你找不到新版的id)</p>
+<p>分支有关命令</p>
+<p>git checkout -b <name><template>name是这个分支的名字，第二个参数是以哪个分支或者master为模板，继承其操作，但是每个分支之间分支与master之间的操作并不互通</p>
+<p>git checkout master 从分支切回master</p>
+<p>git branch 查看所有分支 亮的条目表示我们现在所处的分支</p>
+<p>git merge <branchname>合并分支的变更到当前所处的分支</p>
+<h3 id="文件状态："><a href="#文件状态：" class="headerlink" title="文件状态："></a>文件状态：</h3><p>1.没有被add过的文件叫untracked<br>2.add之后文件处于staged状态等待commite<br>3.commit之后文件处于unmodified         </p>
+<p>这里之所以有可能变成modified是因为文件会跟仓库中的文件对比<br>4.当unmodified的文件被修改则会变为modified状态<br>5.modified之后的文件add之后将继续变为staged状态<br>6.unmodifed的文件还有一种可能是已经不再需要了，那么可以remove它不再追踪变为untracked状态</p>
+<h3 id="如何恢复修改前的文件"><a href="#如何恢复修改前的文件" class="headerlink" title="如何恢复修改前的文件"></a>如何恢复修改前的文件</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39846378/article/details/112583777">(18条消息) 修改txt文件某行_GIT，如何恢复修改过的文件，回到过去呢？_weixin_39846378的博客-CSDN博客</a></p>
+<p>文章中只有第三种方法是好用的</p>
+<p>先add文件再commit文件再修改文件（可以直接在原文件修改也可以用linux命令方法下面补充里有），再add文件，再commit，这时如果想回到最初版本，再用上面的第三种方法</p>
+<h2 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h2><p>git工作区域</p>
+<p>1.工作区，添加编辑修改文件等动作</p>
+<p>2，git仓库，最终确定的文件保存到仓库，成为一个新的版本对他人可见</p>
+<p>3，暂存区，暂存已经修改的文件最后统一提交到git仓库中</p>
+<p>初始化一个新的git仓库</p>
+<p>1.新建文件夹</p>
+<p>2.在文件内右击点git bash here，再在命令行中输入git init就生成一个.git隐藏文件夹，存储本地仓库信息</p>
+<p>补充</p>
+<h4 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h4><p>   touch a1.php   创建一个名为a1.php的文件</p>
+<h4 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h4><p>也可以用命令进行，文件进入暂存区之后，</p>
+<p>vi a1.php（a1.php为文件名）修改文件</p>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>1.删除文件       rm a1.php</p>
+<p>2，从git中删除文件  git rm a1.php</p>
+<p>3,git commit -m “提交描述”</p>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p><a target="_blank" rel="noopener" href="https://github.com/zhaozihj/test">https://github.com/zhaozihj/test</a></p>
+<p>github目的：借助github托管项目的代码</p>
+<p>github.com后面跟的是仓库的主人名字在后面是仓库的名字这样可以直接访问一个仓库</p>
+<p>repository 仓库，存放项目代码</p>
+<p>star 收藏</p>
+<p>fork 复制克隆项目，复制之后自己就会出现一个一样的仓库，且是单独存在</p>
+<p>watch 关注，关注某个项目后，这个项目有任何更新自己都会收到第一时间提醒</p>
+<p>issue 事务卡片比如一个项目，别人发现你的项目中有漏洞，他就可以给你提一个issue，看到这些问题可以逐个去修复，修复ok就可以close掉</p>
+<h4 id="pull-request（发起请求）意思和作用"><a href="#pull-request（发起请求）意思和作用" class="headerlink" title="pull request（发起请求）意思和作用"></a>pull request（发起请求）意思和作用</h4><p>“有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了”</p>
+<p>建立pull request是克隆之后，在克隆产生的那个仓库中请求pull request</p>
+<h2 id="git管理远程仓库"><a href="#git管理远程仓库" class="headerlink" title="git管理远程仓库"></a>git管理远程仓库</h2><h4 id="使用远程仓库目的"><a href="#使用远程仓库目的" class="headerlink" title="使用远程仓库目的"></a>使用远程仓库目的</h4><p>作用：备份，实现代码共享集中化管理</p>
+<p>1.工作区，workspace</p>
+<p>2，暂存区，index</p>
+<p>3，git仓库，repository</p>
+<p><strong>4.用git  push将本地仓库提交到远程仓库Remote</strong></p>
+<h4 id="git克隆操作"><a href="#git克隆操作" class="headerlink" title="git克隆操作"></a>git克隆操作</h4><h4 id="目的：将远程仓库（github对应的项目）复制到本地"><a href="#目的：将远程仓库（github对应的项目）复制到本地" class="headerlink" title="目的：将远程仓库（github对应的项目）复制到本地"></a>目的：将远程仓库（github对应的项目）复制到本地</h4><p>代码：给git clone 仓库地址，仓库地址是在github那个code选项中找到的</p>
+<h4 id="将本地仓库同步到git远程仓库中"><a href="#将本地仓库同步到git远程仓库中" class="headerlink" title="将本地仓库同步到git远程仓库中"></a>将本地仓库同步到git远程仓库中</h4><p>git push</p>
+<p>先对文件进行修改，完成操作后commit命令，再用git push，然后会让你进行一个验证</p>
+<h3 id="个人站点"><a href="#个人站点" class="headerlink" title="个人站点"></a>个人站点</h3><p>访问 https:&#x2F;&#x2F;用户名.github.io</p>
+<p>搭建步骤</p>
+<p>1，创建个人站点   -&gt;  新建仓库（仓库名必须是【用户名.github.io】）</p>
+<p>2.在仓库下新建index.html的文件即可</p>
+<p>github pages 仅支持静态网页</p>
+<p>仓库里面只能是静态网页</p>
+<h3 id="project-pages-项目站点"><a href="#project-pages-项目站点" class="headerlink" title="project pages 项目站点"></a>project pages 项目站点</h3><p>https:&#x2F;&#x2F;用户名.github.io&#x2F;仓库名</p>
+<p>搭建步骤</p>
+<p>1，进入项目主页，点击setting</p>
+<p>2，再settings页面，点击pages    再点击choose themes 选择主题，可以改变内容 ，再自动生成主题页面</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>git和github</div>
+      <div>http://example.com/2022/09/29/git使用和github/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>September 29, 2022</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/29/docker/" title="docker">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">docker</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/29/javascript%E5%AD%A6%E4%B9%A0/" title="javascript">
+                        <span class="hidden-mobile">javascript</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
